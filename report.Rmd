@@ -1,0 +1,24 @@
+---
+title: "Shiny to Pdf Converter"
+author: "Milan Baral"
+date: "2023-07-30"
+output: html_document
+---
+
+```{r}
+
+data2 <- deduced_data()
+
+chart(input$province,input$district,input$local,data2)
+ 
+chart_house(input$province,input$district,input$local,data2)
+
+malefemale <- c(sum(data2$total.male), sum(data2$total.female))
+
+names(malefemale) <- c("Male", "Female")
+
+pie(malefemale,col = rainbow(2),main = "Population by gender")
+
+
+```
+
