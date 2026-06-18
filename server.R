@@ -13,7 +13,7 @@ library(dplyr)
 
 shinyServer(function(input, output) {
   # loading the data
-  data1 <- read.csv("preliminary-data-of-national-population-and-housing-census-2021-english2.csv")
+  data1 <- read.csv("data/preliminary-data-of-national-population-and-housing-census-2021-english2.csv")
   
   # providing the option to select district according to the province selected by the user
   output$district <- renderUI({
@@ -334,7 +334,7 @@ chart_house <- function(province, district, local, data2) {
 
 
 intercensal <- function(repre){
-  data1 <- read.csv("inter-censal-population-changes-from-1911-to-2011-ad.csv")
+  data1 <- read.csv("data/inter-censal-population-changes-from-1911-to-2011-ad.csv")
   if(repre == "population"){
     height <- data1$Population 
     ylab <- "Population"
@@ -381,7 +381,7 @@ highlight <- function(province,district,local){
 chart_others <- function(visual) {
   if (visual == "maritial") {
     # Specify the encoding as "UTF-8" to handle special characters
-    data1 <- read.csv("Marital_status.csv", encoding = "UTF-8")
+    data1 <- read.csv("data/Marital_status.csv", encoding = "UTF-8")
     data1 <- data1 %>% rename("category" = "X.U.FEFF.category")
     title <- "Nationwise Maritial Status "
   } else {
@@ -400,7 +400,7 @@ chart_others <- function(visual) {
 
 table_others <- function(visual){
   if(visual == "maritial"){
-    data1 <- read.csv("Marital_status.csv", encoding = "UTF-8")
+    data1 <- read.csv("data/Marital_status.csv", encoding = "UTF-8")
     data1 <- data1 %>% rename("category" = "X.U.FEFF.category")
   }else if(visual == "employment"){
     data1 <- read.csv("Province_wise_employment_status.csv")
@@ -426,14 +426,14 @@ literacy_rates<- function(province){
  
 
   if(province == "overall"){
-    data1 <- read.csv("Province_wise_literacy_rates.csv")
+    data1 <- read.csv("data/Province_wise_literacy_rates.csv")
     data1 <- rename(data1, "Province" = "ï..Province")
     Labels <- reorder( data1$Province,data1$Total)
     xlab <- "Province"
     title <- "Literacy rate by Province"
 
   }else {
-    data1 <- read.csv("literacy-rates.csv")
+    data1 <- read.csv("data/literacy-rates.csv")
     data1 <- data1 %>% filter(Province == province)
     Labels <- reorder( data1$District,data1$Total)
     xlab <- "District"
@@ -456,11 +456,11 @@ literacy_rates<- function(province){
 literacy_status <- function(province){
   if(province== "overall"){
    
-    data1 <- read.csv("literacy_status.csv")
+    data1 <- read.csv("data/literacy_status.csv")
    
     title <- "Literacy Status of Nepal"
   }else{
-    data1 <- read.csv("Province_wise_literacy_status.csv")
+    data1 <- read.csv("data/Province_wise_literacy_status.csv")
     data1 <- data1 %>% filter(Province == province)
     data1 <- data1 %>% rename("category"= "Status")
     title <- paste("Literacy Status of ",province)
@@ -476,9 +476,9 @@ literacy_status <- function(province){
 # function for showing literacy status data
 table_literacy_status <- function(province){
   if(province == "overall"){
-    data1 <- read.csv("literacy_status.csv")
+    data1 <- read.csv("data/literacy_status.csv")
   }else{
-    data1 <- read.csv("Province_wise_literacy_status.csv")
+    data1 <- read.csv("data/Province_wise_literacy_status.csv")
     data1 <- data1 %>% filter(Province == province)
     data1 <- data1 %>% select(c("Status", "Total","Male","Female"))
   }
@@ -489,9 +489,9 @@ table_literacy_status <- function(province){
 
 table_literacy_rates <- function(province){
   if(province == "overall"){
-    data1 <- read.csv("Province_wise_literacy_rates.csv")
+    data1 <- read.csv("data/Province_wise_literacy_rates.csv")
   }else{
-    data1 <- read.csv("literacy-rates.csv")
+    data1 <- read.csv("data/literacy-rates.csv")
     data1 <- data1 %>% filter(Province = province)
   }
   data1
